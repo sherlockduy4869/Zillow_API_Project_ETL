@@ -16,3 +16,5 @@ def zillow_pipeline(file_name: str, query_string: str, url:str):
     file_path = f'{OUTPUT_PATH}/{file_name}.csv'
     load_data_to_csv(zillow_data_transformed_df, file_path)
 
+    return file_path
+
