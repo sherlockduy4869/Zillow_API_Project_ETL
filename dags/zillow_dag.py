@@ -5,7 +5,7 @@ import sys
 from airflow.operators.python import PythonOperator
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from pipelines.s3_pipeline import upload_s3_pipeline
+from pipelines.aws_s3_pipeline import upload_s3_pipeline
 from pipelines.zillow_pipeline import zillow_pipeline
 
 default_args = {
