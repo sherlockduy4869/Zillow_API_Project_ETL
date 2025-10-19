@@ -21,3 +21,9 @@ AWS_BUCKET_NAME = parser.get('aws', 'aws_bucket_name')
 
 INPUT_PATH = parser.get('file_paths', 'input_path')
 OUTPUT_PATH = parser.get('file_paths', 'output_path')
+
+
+#GLUE
+GLUE_CRAWLER_NAME = parser.get('glue', 'crawler_name')
+GLUE_DATABASE_NAME = parser.get('glue', 'database_name')
+GLUE_ROLE_ARN = parser.get('glue', 'role_arn')

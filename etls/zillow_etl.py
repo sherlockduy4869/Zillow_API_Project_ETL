@@ -1,7 +1,6 @@
 import requests
-import json
+
 import pandas as pd
-import logging
 
 def extract_zillow_data(query_string, url, x_rapidapi_key: str, x_rapidapi_host: str):
 

@@ -5,7 +5,8 @@ import sys
 from airflow.operators.python import PythonOperator
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from pipelines.aws_s3_pipeline import upload_s3_pipeline
+from pipelines.aws_glue_pipeline import glue_pipeline
+from pipelines.aws_s3_pipeline import check_file_s3_pipeline, upload_s3_pipeline
 from pipelines.zillow_pipeline import zillow_pipeline
 
 default_args = {
@@ -44,4 +45,18 @@ upload_s3 = PythonOperator(
     dag = dag
 )
 
-extract >> upload_s3
+#checking availability of file in s3 bucket
+is_file_uploaded_to_s3 = PythonOperator(
+    task_id = 'is_file_uploaded_to_s3',
+    python_callable = check_file_s3_pipeline,
+    dag = dag
+)
+
+#creating glue crawler to catalog data in s3 bucket
+glue_crawler = PythonOperator(
+    task_id = 'glue_crawler_zillow_data',
+    python_callable = glue_pipeline,
+    dag = dag
+)
+
+extract >> upload_s3 >> is_file_uploaded_to_s3 >> glue_crawler

@@ -29,6 +29,20 @@ def create_bucket_if_not_exists(s3, bucket_name):
 def upload_to_s3(s3: s3fs.S3FileSystem, file_path: str, bucket:str, s3_file_name: str):
     try:
         s3.put(file_path, bucket+'/transformed/'+ s3_file_name)
-        print('File uploaded to s3')
+        logging.info('File uploaded to s3')
     except FileNotFoundError:
-        print('The file was not found')
+        logging.error('The file was not found')
+
+def check_file_availability(bucket_path: str, file_name: str):
+    try:
+        s3 = connect_to_s3()
+        full_path = bucket_path + file_name.split('/')[-1]
+        if s3.exists(full_path):
+            logging.info(f"File {full_path} exists in S3.")
+            return True
+        else:
+            logging.warning(f"File {full_path} does not exist in S3.")
+            return False
+    except Exception as e:
+        logging.error(f"Error checking file availability in S3: {e}")
+        raise e
