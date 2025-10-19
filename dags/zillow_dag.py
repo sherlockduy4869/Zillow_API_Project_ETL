@@ -6,7 +6,7 @@ from airflow.operators.python import PythonOperator
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from utils.constants import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
+from utils.constants import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY, ZILLOW_API_QUERY_STRING, ZILLOW_API_URL
 from pipelines.redshift_pipeline import redshift_pipeline
 from pipelines.aws_glue_pipeline import glue_pipeline
 from pipelines.aws_s3_pipeline import check_file_s3_pipeline, upload_s3_pipeline
@@ -40,8 +40,8 @@ extract = PythonOperator(
     python_callable = zillow_pipeline,
     op_kwargs = {
         'file_name' : f'zillow_data_{file_postfix}',
-        'query_string' : {"location":"houston, tx","output":"json","status":"forSale","sortSelection":"priorityscore","listing_type":"by_agent","doz":"any"},
-        'url': 'https://zillow56.p.rapidapi.com/search'
+        'query_string' : ZILLOW_API_QUERY_STRING,
+        'url': ZILLOW_API_URL,
     },
     dag=dag
 )

@@ -4,9 +4,11 @@ import os
 parser = configparser.ConfigParser()
 parser.read(os.path.join(os.path.dirname(__file__), '../config/config.conf'))
 
+#API KEYS
 X_RAPIDAPI_KEY = parser.get('api_keys', 'x_rapidapi_key')
 X_RAPIDAPI_HOST = parser.get('api_keys', 'x_rapidapi_host')
 
+#DATABASE
 DATABASE_HOST =  parser.get('database', 'database_host')
 DATABASE_NAME =  parser.get('database', 'database_name')
 DATABASE_PORT =  parser.get('database', 'database_port')
@@ -22,6 +24,9 @@ AWS_BUCKET_NAME = parser.get('aws', 'aws_bucket_name')
 INPUT_PATH = parser.get('file_paths', 'input_path')
 OUTPUT_PATH = parser.get('file_paths', 'output_path')
 
+#ZILLOW API
+ZILLOW_API_URL = parser.get('zillow_api', 'url')
+ZILLOW_API_QUERY_STRING = parser.get('zillow_api', 'query_string')
 
 #GLUE
 GLUE_CRAWLER_NAME = parser.get('glue', 'crawler_name')
