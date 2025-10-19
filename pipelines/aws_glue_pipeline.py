@@ -1,15 +1,9 @@
 from etls.aws_glue_etl import create_glue_crawler, run_glue_crawler
-import boto3
-from utils.constants import AWS_ACCESS_KEY_ID, AWS_BUCKET_NAME, AWS_SECRET_ACCESS_KEY, AWS_REGION, GLUE_CRAWLER_NAME, GLUE_DATABASE_NAME, GLUE_ROLE_ARN
+from utils.constants import AWS_BUCKET_NAME, GLUE_CRAWLER_NAME, GLUE_DATABASE_NAME, GLUE_ROLE_ARN
 
-def glue_pipeline():
+def glue_pipeline(session):
 
-    session = boto3.Session(
-    aws_access_key_id = AWS_ACCESS_KEY_ID,
-    aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
-    region_name = AWS_REGION)
-
-    glue = session.client("glue", region_name = AWS_REGION)
+    glue = session.client("glue")
 
     crawler_name = GLUE_CRAWLER_NAME
     role_arn = GLUE_ROLE_ARN

@@ -27,3 +27,8 @@ OUTPUT_PATH = parser.get('file_paths', 'output_path')
 GLUE_CRAWLER_NAME = parser.get('glue', 'crawler_name')
 GLUE_DATABASE_NAME = parser.get('glue', 'database_name')
 GLUE_ROLE_ARN = parser.get('glue', 'role_arn')
+
+#REDSHIFT
+REDSHIFT_NAMESPACE_NAME = parser.get('redshift', 'namespace_name')
+REDSHIFT_WORKSPACE_NAME = parser.get('redshift', 'workspace_name')
+REDSHIFT_ROLE_ARN = parser.get('redshift', 'role_arn')

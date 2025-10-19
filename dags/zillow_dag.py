@@ -5,9 +5,13 @@ import sys
 from airflow.operators.python import PythonOperator
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from utils.constants import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
+from pipelines.redshift_pipeline import redshift_pipeline
 from pipelines.aws_glue_pipeline import glue_pipeline
 from pipelines.aws_s3_pipeline import check_file_s3_pipeline, upload_s3_pipeline
 from pipelines.zillow_pipeline import zillow_pipeline
+import boto3
 
 default_args = {
     'owner' : 'trandinhduy',
@@ -15,6 +19,11 @@ default_args = {
 }
 
 file_postfix = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+session = boto3.Session(
+    aws_access_key_id = AWS_ACCESS_KEY_ID,
+    aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
+    region_name = AWS_REGION)
 
 dag = DAG(
     dag_id='zillow_analytics_dag',
@@ -56,7 +65,20 @@ is_file_uploaded_to_s3 = PythonOperator(
 glue_crawler = PythonOperator(
     task_id = 'glue_crawler_zillow_data',
     python_callable = glue_pipeline,
+    op_kwargs = {
+        'session' : session
+    },
     dag = dag
 )
 
-extract >> upload_s3 >> is_file_uploaded_to_s3 >> glue_crawler
+#creating redshift cluster to load data from s3 bucket
+redshift_cluster = PythonOperator(
+    task_id = 'redshift_cluster_zillow_data',
+    python_callable = redshift_pipeline,
+    op_kwargs = {
+        'session' : session
+    },
+    dag = dag
+)
+
+extract >> upload_s3 >> is_file_uploaded_to_s3 >> glue_crawler >> redshift_cluster
