@@ -7,7 +7,7 @@ from airflow.operators.python import PythonOperator
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.constants import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY, ZILLOW_API_QUERY_STRING, ZILLOW_API_URL
-from pipelines.redshift_pipeline import redshift_pipeline
+from pipelines.aws_redshift_pipeline import redshift_pipeline
 from pipelines.aws_glue_pipeline import glue_pipeline
 from pipelines.aws_s3_pipeline import check_file_s3_pipeline, upload_s3_pipeline
 from pipelines.zillow_pipeline import zillow_pipeline

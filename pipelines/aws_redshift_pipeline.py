@@ -1,4 +1,4 @@
-from etls.redshift_etl import create_namespace, create_workspace
+from etls.aws_redshift_etl import create_namespace, create_workspace
 from utils.constants import REDSHIFT_NAMESPACE_NAME, REDSHIFT_WORKSPACE_NAME
 
 
