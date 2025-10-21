@@ -34,11 +34,11 @@ Built with modern technologies it aims to provide eng-to-end data pipeline for e
 
 ## Architecture
 
-
+![Architecture](./assets/Login_Page.png)
 
 ## Application
 
-![Login Page](./assets/Login_Page.png)
+![Login Page](./assets/Zillow_ETL_Project.drawio.png)
 
 ![Airflow Home Page](./assets/Airflow_Home_Page.png)
 
