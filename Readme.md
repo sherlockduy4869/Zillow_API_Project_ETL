@@ -1,6 +1,4 @@
-# 🚀 Project Name
-
-Zillow API ETL Project
+# 🚀 Zillow API ETL Project
 
 ---
 
