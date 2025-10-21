@@ -34,7 +34,7 @@ Built with modern technologies it aims to provide eng-to-end data pipeline for e
 
 ## Architecture
 
-![Architecture](./assets/Zillow_ETL_Project.drawio.png)
+![Architecture](https://github.com/sherlockduy4869/Zillow_API_Project_ETL/blob/8e02b2f66aaf2481d8f5bfb2c62f53832c27be95/assets/Airflow_Home_Page.png)
 
 ## Application
 
